@@ -1,0 +1,25 @@
+services:
+
+  MSsqlserver:
+
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    container_name: MSsqlserver
+
+    environment:
+
+      ACCEPT_EULA: "Y"
+
+      SA_PASSWORD: "Str0ng@Sql2026!"
+
+    ports:
+
+      - "1433:1433"
+
+    volumes:
+
+      - MSsqlserver_data:/var/opt/mssql
+
+volumes:
+
+  MSsqlserver_data:
