@@ -1,4 +1,5 @@
 using LojaVirtual.Data;
+using LojaVirtual.Services.Produto;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDockerConnection"))
 );
 
+builder.Services.AddScoped<IProdutoInterface, ProdutoService>();
 
 var app = builder.Build();
 
