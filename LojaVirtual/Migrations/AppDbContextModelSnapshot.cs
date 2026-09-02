@@ -66,7 +66,7 @@ namespace LojaVirtual.Migrations
                     b.Property<int>("CategoriaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Foto")
+                    b.Property<string>("Imagem")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

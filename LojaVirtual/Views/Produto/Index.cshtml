@@ -1,0 +1,60 @@
+﻿@using LojaVirtual.Models
+
+@model List<ProdutoModel>
+
+
+<div class="container mt-5">
+    
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Lista de Produtos</h2>
+        <a class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Cadastra Novo Produto</a>
+    </div>
+
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th></th>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Categoria</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var produto in Model)
+                {
+                    <tr>
+                        @if (produto.Foto != null)
+                        {
+                            <td><img src="..."/></td>
+                        } else
+                        {
+                            <td></td>
+                        }
+                        <td>@produto.Nome</td>
+                        <td>@produto.Marca</td>
+                        <td>@produto.Categoria</td>
+                        <td>@produto.QuantidadeEmEstoque</td>
+                        <td>@produto.Valor.ToString("F2")</td>
+                        <td>
+                            <a class="btn btn-outline-info"><i class="bi bi-pencil"></i> Editar</a>
+                            <a class="btn btn-outline-danger"><i class="bi bi-x-circle"></i> Remover</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+    
+</div>
+
+
+
+ 

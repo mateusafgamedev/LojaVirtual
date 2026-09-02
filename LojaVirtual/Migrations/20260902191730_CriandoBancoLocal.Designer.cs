@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaVirtual.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260831173505_CriandoTabelas")]
-    partial class CriandoTabelas
+    [Migration("20260902191730_CriandoBancoLocal")]
+    partial class CriandoBancoLocal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
