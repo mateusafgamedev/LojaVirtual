@@ -1,8 +1,9 @@
 ﻿using LojaVirtual.Data;
 using LojaVirtual.Models;
+using LojaVirtual.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace LojaVirtual.Services.Produto
+namespace LojaVirtual.Services
 {
 
     public class ProdutoService : IProdutoInterface

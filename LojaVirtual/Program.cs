@@ -1,5 +1,6 @@
 using LojaVirtual.Data;
-using LojaVirtual.Services.Produto;
+using LojaVirtual.Repository;
+using LojaVirtual.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddScoped<IProdutoInterface, ProdutoService>();
+builder.Services.AddScoped<ICategoriaInterface, CategoriaService>();
 
 var app = builder.Build();
 

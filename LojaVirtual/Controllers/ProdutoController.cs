@@ -1,4 +1,4 @@
-﻿using LojaVirtual.Services.Produto;
+﻿using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaVirtual.Controllers
@@ -6,9 +6,12 @@ namespace LojaVirtual.Controllers
     public class ProdutoController : Controller
     {
         private readonly IProdutoInterface _produtoInterface;
-        public ProdutoController(IProdutoInterface produtoInterface)
+        private readonly ICategoriaInterface _categoriaInterface;
+        public ProdutoController(IProdutoInterface produtoInterface, 
+                                    ICategoriaInterface categoriaInterface)
         {
             _produtoInterface = produtoInterface;
+            _categoriaInterface = categoriaInterface;
         }
 
         public async Task<IActionResult> Index()
@@ -16,5 +19,13 @@ namespace LojaVirtual.Controllers
             var produtos = await _produtoInterface.ListarProdutos();
             return View(produtos);
         }
+
+        public async Task<IActionResult> CadastrarProduto() 
+        {
+            ViewBag.Categoria = await _categoriaInterface.BuscarCategoria();
+
+            return View(); 
+        }
+
     }
 }

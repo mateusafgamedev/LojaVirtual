@@ -1,6 +1,6 @@
 ﻿using LojaVirtual.Models;
 
-namespace LojaVirtual.Services.Produto
+namespace LojaVirtual.Repository
 {
     public interface IProdutoInterface
     {
