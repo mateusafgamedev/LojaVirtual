@@ -1,10 +1,10 @@
 services:
 
-  MSsqlserver:
+  LojaVirtualContainer:
 
     image: mcr.microsoft.com/mssql/server:2022-latest
 
-    container_name: MSsqlserver
+    container_name: LojaVirtualContainer
 
     environment:
 
@@ -18,8 +18,8 @@ services:
 
     volumes:
 
-      - MSsqlserver_data:/var/opt/mssql
+      - LojaVirtualContainer_data:/var/opt/mssql
 
 volumes:
 
-  MSsqlserver_data:
+  LojaVirtualContainer_data:
