@@ -22,7 +22,7 @@ namespace LojaVirtual.Controllers
 
         public async Task<IActionResult> CadastrarProduto() 
         {
-            ViewBag.Categoria = await _categoriaInterface.BuscarCategoria();
+            ViewBag.Categorias = await _categoriaInterface.BuscarCategoria();
 
             return View(); 
         }

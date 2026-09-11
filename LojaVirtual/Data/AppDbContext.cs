@@ -19,7 +19,7 @@ namespace LojaVirtual.Data
 
             modelBuilder.Entity<CategoriaModel>().HasData(
                 new CategoriaModel { Id = 1, Nome = "Eletrônicos" },
-                new CategoriaModel { Id = 2, Nome = "Causados" },
+                new CategoriaModel { Id = 2, Nome = "Calçados" },
                 new CategoriaModel { Id = 3, Nome = "Roupas" }
             );
 
