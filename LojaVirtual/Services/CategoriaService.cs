@@ -12,7 +12,7 @@ namespace LojaVirtual.Services
         {
             _context = context;
         }
-        public async Task<List<CategoriaModel>> BuscarCategoria()
+        public async Task<List<CategoriaModel>> BuscarCategoriasParaProdutos()
         {
             try
             {

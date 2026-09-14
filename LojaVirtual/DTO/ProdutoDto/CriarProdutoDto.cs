@@ -2,16 +2,20 @@
 
 namespace LojaVirtual.DTO.ProdutoDto
 {
-    public class ProdutoCriarDto
+    public class CriarProdutoDto
     {
         [Required(ErrorMessage = "O campo Nome é obrigatório.")]
         public string Nome { get; set; }
-
+        [Required(ErrorMessage = "O campo Marca é obrigatório.")]
         public string Marca { get; set; }
+        [Required(ErrorMessage = "O campo Modelo é obrigatório.")]
         public string Modelo { get; set; }
-        public string Foto { get; set; }
-        public double Valor { get; set; }
-        public int QuantidadeEmEstoque { get; set; }
-        public int CategoriaId { get; set; }
+        public string? Foto { get; set; }
+        [Required(ErrorMessage = "O campo Valor é obrigatório.")]
+        public double? Valor { get; set; }
+        [Required(ErrorMessage = "O campo QuantidadeEmEstoque é obrigatório.")]
+        public int? QuantidadeEmEstoque { get; set; }
+        [Required(ErrorMessage = "Selecione uma Categoria.")]
+        public int? CategoriaId { get; set; }
     }
 }

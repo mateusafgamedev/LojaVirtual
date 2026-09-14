@@ -4,6 +4,6 @@ namespace LojaVirtual.Repository
 {
     public interface ICategoriaInterface
     {
-        Task<List<CategoriaModel>> BuscarCategoria();
+        Task<List<CategoriaModel>> BuscarCategoriasParaProdutos();
     }
 }

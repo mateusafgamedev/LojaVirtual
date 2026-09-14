@@ -3,7 +3,7 @@
 
 
 <div class="container mt-5">
-    <form>
+    <form asp-action="CadastrarProduto" asp-controller="Produto" method="post" enctype="multipart/form-data">
         <h2>Cadastrar Produto</h2>
         <div class="mb-1">
             <label class="form-label">Foto:</label>
@@ -41,7 +41,7 @@
                 class="form-select"
                 asp-items="@(new SelectList(ViewBag.Categorias, "Id", "Nome"))"
                 asp-for="CategoriaId"
-            >
+            ><option value="">Selecione uma categoria</option>
             </select>
             <span asp-validation-for="CategoriaId"></span>
         </div>

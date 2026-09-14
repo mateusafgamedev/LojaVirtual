@@ -1,4 +1,5 @@
-﻿using LojaVirtual.Repository;
+﻿using LojaVirtual.DTO.ProdutoDto;
+using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaVirtual.Controllers
@@ -22,9 +23,26 @@ namespace LojaVirtual.Controllers
 
         public async Task<IActionResult> CadastrarProduto() 
         {
-            ViewBag.Categorias = await _categoriaInterface.BuscarCategoria();
+            ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
 
             return View(); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CadastrarProduto(CriarProdutoDto produtoDto, IFormFile foto)
+        {
+            if(ModelState.IsValid)
+            {
+                var produto = await _produtoInterface.CadastrarProduto(produtoDto, foto);
+                return RedirectToAction("Index", "Produto");
+            }
+            else
+            {
+                ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
+                return View(produtoDto);
+            }
+
+            
         }
 
     }
