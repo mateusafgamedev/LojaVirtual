@@ -45,7 +45,7 @@
                         <td>@produto.Valor.ToString("F2")</td>
                         <td>
                             <a class="btn btn-outline-info"><i class="bi bi-pencil"></i> Editar</a>
-                            <a class="btn btn-outline-danger"><i class="bi bi-x-circle"></i> Remover</a>
+                            <a asp-action="ExcluirProduto" asp-controller="Produto" asp-route-id="@produto.Id" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i> Remover</a>
                         </td>
                     </tr>
                 }
@@ -55,7 +55,7 @@
 
 
     
-</div>
+</div>as
 
 
 

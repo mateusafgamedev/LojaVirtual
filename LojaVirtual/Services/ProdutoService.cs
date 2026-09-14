@@ -44,6 +44,25 @@ namespace LojaVirtual.Services
         
         }
 
+        public async Task<ProdutoModel> ExcluirProduto(int id)
+        {
+            try
+            {
+                var produto = await _context.Produtos.FindAsync(id);
+                if (produto == null)
+                {
+                    throw new Exception("Produto não cadastrado ou não encontrado.");
+                }
+                _context.Produtos.Remove(produto);
+                await _context.SaveChangesAsync();
+                return produto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<ProdutoModel>> ListarProdutos()
         {
             try

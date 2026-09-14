@@ -13,27 +13,27 @@
         <div class="mb-1">
             <label class="form-label">Nome:</label>
             <input class="form-control shadow-none" type="text" name="nome" asp-for="Nome" />
-            <span asp-validation-for="Nome"></span>
+            <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
         <div class="mb-1">
             <label class="form-label">Marca:</label>
             <input class="form-control shadow-none" type="text" name="marca" asp-for="Marca" />
-            <span asp-validation-for="Marca"></span>
+            <span asp-validation-for="Marca" class="text-danger"></span>
         </div>
         <div class="mb-1">
             <label class="form-label">Modelo:</label>
             <input class="form-control shadow-none" type="text" name="modelo" asp-for="Modelo" />
-            <span asp-validation-for="Modelo"></span>
+            <span asp-validation-for="Modelo" class="text-danger"></span>
         </div>
         <div class="mb-1">
             <label class="form-label">Quantidade:</label>
             <input class="form-control shadow-none" type="number" min="1" step="any" asp-for="QuantidadeEmEstoque" />
-            <span asp-validation-for="QuantidadeEmEstoque"></span>
+            <span asp-validation-for="QuantidadeEmEstoque" class="text-danger"></span>
         </div>
         <div class="mb-1">
             <label class="form-label">Valor:</label>
             <input class="form-control shadow-none" type="number" min="1" step="any" asp-for="Valor"/>
-            <span asp-validation-for="Valor"></span>
+            <span asp-validation-for="Valor" class="text-danger"></span>
         </div>
         <div class="mb-1">
             <label class="form-label">Categorias:</label>
@@ -43,7 +43,7 @@
                 asp-for="CategoriaId"
             ><option value="">Selecione uma categoria</option>
             </select>
-            <span asp-validation-for="CategoriaId"></span>
+            <span asp-validation-for="CategoriaId" class="text-danger"></span>
         </div>
         <div class="d-flex mt-3">
             <button type="submit" class="btn btn-outline-success w-50 mx-1"><i class="bi bi-plus-circle"></i>Cadastrar</button>

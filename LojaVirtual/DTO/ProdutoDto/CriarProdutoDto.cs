@@ -13,7 +13,7 @@ namespace LojaVirtual.DTO.ProdutoDto
         public string? Foto { get; set; }
         [Required(ErrorMessage = "O campo Valor é obrigatório.")]
         public double? Valor { get; set; }
-        [Required(ErrorMessage = "O campo QuantidadeEmEstoque é obrigatório.")]
+        [Required(ErrorMessage = "O campo Quantidade é obrigatório.")]
         public int? QuantidadeEmEstoque { get; set; }
         [Required(ErrorMessage = "Selecione uma Categoria.")]
         public int? CategoriaId { get; set; }

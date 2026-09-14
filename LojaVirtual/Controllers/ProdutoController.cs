@@ -45,5 +45,11 @@ namespace LojaVirtual.Controllers
             
         }
 
+        public async Task<IActionResult> ExcluirProduto(int id)
+        {
+            await _produtoInterface.ExcluirProduto(id);
+            return RedirectToAction("Index", "Produto");
+        }
+
     }
 }
