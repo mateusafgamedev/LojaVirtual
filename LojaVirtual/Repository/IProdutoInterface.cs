@@ -7,6 +7,8 @@ namespace LojaVirtual.Repository
     {
         Task<List<ProdutoModel>> ListarProdutos();
         Task<ProdutoModel> CadastrarProduto(CriarProdutoDto produtoDto, IFormFile foto);
+        Task<ProdutoModel> BuscarProdutoPorId(int id);
+        Task<ProdutoModel> AtualizarProduto(int id, EditarProdutoDto atualizarProdutoDto, IFormFile foto);
         Task<ProdutoModel> ExcluirProduto(int id);
     }
 }

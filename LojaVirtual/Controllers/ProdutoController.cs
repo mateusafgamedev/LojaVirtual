@@ -41,8 +41,32 @@ namespace LojaVirtual.Controllers
                 ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
                 return View(produtoDto);
             }
+        }
 
-            
+        public async Task<IActionResult> EditarProduto(int id)
+        {
+            ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
+
+            var produto = await _produtoInterface.BuscarProdutoPorId(id);
+
+            var editarProdutoDto = new EditarProdutoDto
+            {
+                Nome = produto.Nome,
+                Marca = produto.Marca,
+                Modelo = produto.Modelo,
+                Foto = produto.Foto,
+                Valor = produto.Valor,
+                QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
+                CategoriaId = produto.CategoriaId
+            };
+            return View(editarProdutoDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditarProduto(int id, EditarProdutoDto produtoDto, IFormFile foto)
+        {
+            var produto = await _produtoInterface.AtualizarProduto(id, produtoDto, foto);
+            return RedirectToAction("Index", "Produto");
         }
 
         public async Task<IActionResult> ExcluirProduto(int id)

@@ -17,6 +17,56 @@ namespace LojaVirtual.Services
             _environment = environment.WebRootPath;
         }
 
+        public async Task<ProdutoModel> AtualizarProduto(int id, EditarProdutoDto atualizarProdutoDto, IFormFile foto)
+        {
+            try
+            {
+                var produtoExistente = await BuscarProdutoPorId(id);
+
+                produtoExistente.Nome = atualizarProdutoDto.Nome;
+                produtoExistente.Marca = atualizarProdutoDto.Marca;
+                produtoExistente.Modelo = atualizarProdutoDto.Modelo;
+                produtoExistente.Valor = atualizarProdutoDto.Valor.Value;
+                produtoExistente.QuantidadeEmEstoque = atualizarProdutoDto.QuantidadeEmEstoque.Value;
+                produtoExistente.CategoriaId = atualizarProdutoDto.CategoriaId.Value;
+
+                if (foto != null)
+                {
+                    produtoExistente.Foto = GerarCaminhoImagem(foto);
+                }
+
+                await _context.SaveChangesAsync();
+                return produtoExistente;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }   
+        }
+
+        public Task<ProdutoModel> BuscarProdutoPorId(int id)
+        {
+            try
+            {
+                var produtoExistente = _context.Produtos
+                  .Include(c => c.Categoria)
+                  .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (produtoExistente == null)
+                {
+                    throw new Exception("Produto não cadastrado ou não encontrado.");
+                }
+
+                return produtoExistente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         public async Task<ProdutoModel> CadastrarProduto(CriarProdutoDto produtoDto, IFormFile foto)
         {
             try
