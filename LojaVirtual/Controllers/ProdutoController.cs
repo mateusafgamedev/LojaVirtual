@@ -34,11 +34,13 @@ namespace LojaVirtual.Controllers
             if(ModelState.IsValid)
             {
                 var produto = await _produtoInterface.CadastrarProduto(produtoDto, foto);
+                TempData["MenssagemSucesso"] = "Produto cadastrado com sucesso!";
                 return RedirectToAction("Index", "Produto");
             }
             else
             {
                 ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
+                TempData["MenssagemErro"] = "Erro ao cadastrar produto!";
                 return View(produtoDto);
             }
         }
@@ -65,8 +67,19 @@ namespace LojaVirtual.Controllers
         [HttpPost]
         public async Task<IActionResult> EditarProduto(int id, EditarProdutoDto produtoDto, IFormFile foto)
         {
-            var produto = await _produtoInterface.AtualizarProduto(id, produtoDto, foto);
-            return RedirectToAction("Index", "Produto");
+            if (ModelState.IsValid)
+            {
+                var produto = await _produtoInterface.AtualizarProduto(id, produtoDto, foto);
+                TempData["MenssagemSucesso"] = "Dados editados com sucesso!";
+                return RedirectToAction("Index", "Produto");
+            }
+            else
+            {
+                TempData["MenssagemErro"] = "Erro ao editar dados do produto!";
+                ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
+                return View(produtoDto);
+            }
+           
         }
 
         public async Task<IActionResult> ExcluirProduto(int id)

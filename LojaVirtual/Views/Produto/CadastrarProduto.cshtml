@@ -2,6 +2,21 @@
 @model CriarProdutoDto
 
 
+@if (TempData["MenssagemSucesso"] != null)
+{
+    <div class="alert alert-success text-dark" role="alert">
+        @TempData["MenssagemSucesso"]
+    </div>
+}
+
+@if (TempData["MenssagemErro"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["MenssagemErro"]
+    </div>
+}
+
+
 <div class="container mt-5">
     <form asp-action="CadastrarProduto" asp-controller="Produto" method="post" enctype="multipart/form-data">
         <h2>Cadastrar Produto</h2>
