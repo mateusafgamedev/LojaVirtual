@@ -65,7 +65,7 @@ namespace LojaVirtual.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditarProduto(int id, EditarProdutoDto produtoDto, IFormFile foto)
+        public async Task<IActionResult> EditarProduto(int id, EditarProdutoDto produtoDto, IFormFile? foto)
         {
             if (ModelState.IsValid)
             {

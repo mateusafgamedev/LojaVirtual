@@ -45,11 +45,11 @@ namespace LojaVirtual.Services
             }   
         }
 
-        public Task<ProdutoModel> BuscarProdutoPorId(int id)
+        public async Task<ProdutoModel> BuscarProdutoPorId(int id)
         {
             try
             {
-                var produtoExistente = _context.Produtos
+                var produtoExistente = await _context.Produtos
                   .Include(c => c.Categoria)
                   .FirstOrDefaultAsync(p => p.Id == id);
 

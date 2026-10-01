@@ -10,7 +10,9 @@ namespace LojaVirtual.DTO.ProdutoDto
         public string Marca { get; set; }
         [Required(ErrorMessage = "O campo Modelo é obrigatório.")]
         public string Modelo { get; set; }
+
         public string? Foto { get; set; }
+
         [Required(ErrorMessage = "O campo Valor é obrigatório.")]
         public double? Valor { get; set; }
         [Required(ErrorMessage = "O campo Quantidade é obrigatório.")]
