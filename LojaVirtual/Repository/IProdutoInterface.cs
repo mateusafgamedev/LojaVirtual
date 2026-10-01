@@ -10,5 +10,6 @@ namespace LojaVirtual.Repository
         Task<ProdutoModel> BuscarProdutoPorId(int id);
         Task<ProdutoModel> AtualizarProduto(int id, EditarProdutoDto atualizarProdutoDto, IFormFile foto);
         Task<ProdutoModel> ExcluirProduto(int id);
+        Task<List<ProdutoModel>> BuscarProdutoPorFiltro(string pesquisar);
     }
 }

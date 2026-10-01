@@ -1,8 +1,37 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using LojaVirtual.Models
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model List<ProdutoModel>
+
+
+<div class="container">
+    <div class="text-center mb-5">
+        <form method="get" asp-action="Index" asp-controller="Home" class="d-flex justify-content-center">
+            <input name="pesquisar" class="form-control w-50 mx-2" style="border:1px solid black"/>
+            <button type="submit" class="btn-primary btn w-10">Pesquisar</button>
+        </form>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g0 justify-content-center">
+        @if (Model != null)
+        {
+            @if (Model.Where(x => x.QuantidadeEmEstoque > 0).Count() > 0)
+            {
+                @foreach (var produto in Model.Where(x => x.QuantidadeEmEstoque > 0))
+                {
+                    <div class="card" style="width:15rem; margin-left: 20px; margin-bottom: 20px">
+                        <h5 class="card-title position-absolute"
+                            style="background-color:#772953; width: 100px; height: 30px; color: white; border-bottom-right-radius:10px; padding-left:10px;"
+                        >@produto.Categoria.Nome</h5>
+
+                        <img src="~/img/@produto.Foto" class="card-img-top" style="width:225px; height:250px"/>
+                        <div class="card-body">
+                            <h5 class="card-title">@produto.Nome</h5>
+                            <h5 class="card-title">@produto.Modelo</h5>
+                            <h5 class="card-title"><b>R$ @produto.Valor.ToString("F")</b></h5>
+                            <a class="btn btn-primary w-100" style="font-size: 16px" asp-action="Detalhes" asp-controller="Produto" asp-route-id="@produto.Id">Detalhes</a>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
 </div>
