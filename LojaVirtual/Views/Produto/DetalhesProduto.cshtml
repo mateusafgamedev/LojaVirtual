@@ -16,7 +16,7 @@
             <li class="list-group-item" style="font-size: 30px">R$ @Model.Valor.ToString("F")</li>
         </ul>
 
-        <form method="Post" asp-action="BaixarEstoque" asp-controller="EstoqueProduto" asp-route-id="@Model.Id" class="mt-5">
+        <form method="Post" asp-action="BaixarEstoque" asp-controller="Estoque" asp-route-id="@Model.Id" class="mt-5">
             <button type="submit" class="btn btn-outline-warning w-50">COMPRAR</button>
             <a class="btn btn-outline-info w-50 mt-3" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left-circle mx-1"></i>VOLTAR</a>
         </form>
