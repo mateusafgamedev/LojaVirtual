@@ -88,5 +88,11 @@ namespace LojaVirtual.Controllers
             return RedirectToAction("Index", "Produto");
         }
 
+        public async Task<IActionResult> DetalhesProduto(int id)
+        {
+            var produto = await _produtoInterface.BuscarProdutoPorId(id);
+            return View(produto);
+        }
+
     }
 }
