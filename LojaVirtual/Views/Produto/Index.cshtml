@@ -27,14 +27,14 @@
     <table class="table table-hover table-bordered" id="registros">
         <thead class="table-info">
             <tr>
-                <th></th>
+                <th class="no-sort"></th>
                 <th>Nome</th>
                 <th>Marca</th>
                 <th>Modelo</th>
                 <th>Categoria</th>
                 <th>Quantidade</th>
                 <th>Valor</th>
-                <th></th>
+                <th class="no-sort"></th>
             </tr>
         </thead>
         <tbody>
@@ -58,17 +58,14 @@
                         <td>@produto.QuantidadeEmEstoque</td>
                         <td>R$ @produto.Valor.ToString("F2")</td>
                         <td>
-                            <a asp-action="EditarProduto" asp-controller="Produto" asp-route-id="@produto.Id" class="btn btn-outline-info"><i class="bi bi-pencil"></i> Editar</a>
-                            <a asp-action="ExcluirProduto" asp-controller="Produto" asp-route-id="@produto.Id" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i> Remover</a>
+                            <a asp-action="EditarProduto" asp-controller="Produto" asp-route-id="@produto.Id" class="btn btn-outline-info"><i class="bi bi-pencil mx-1"></i>Editar</a>
+                            <a asp-action="ExcluirProduto" asp-controller="Produto" asp-route-id="@produto.Id" class="btn btn-outline-danger"><i class="bi bi-x-circle mx-1"></i>Deletar</a>
                         </td>
                     </tr>
                 }
             }
         </tbody>
     </table>
-
-
-    
 </div>
 
 

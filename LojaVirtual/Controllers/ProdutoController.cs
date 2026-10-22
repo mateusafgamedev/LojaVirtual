@@ -85,6 +85,7 @@ namespace LojaVirtual.Controllers
         public async Task<IActionResult> ExcluirProduto(int id)
         {
             await _produtoInterface.ExcluirProduto(id);
+            TempData["MenssagemSucesso"] = "Produto excluído com sucesso!";
             return RedirectToAction("Index", "Produto");
         }
 
