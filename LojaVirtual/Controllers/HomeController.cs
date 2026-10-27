@@ -1,4 +1,6 @@
+
 using LojaVirtual.Models;
+using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +8,28 @@ namespace LojaVirtual.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProdutoInterface _produtoInterface;
+        public HomeController(IProdutoInterface produtoInterface)
         {
-            _logger = logger;
+            _produtoInterface = produtoInterface;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string? pesquisar)
         {
-            return View();
+            List<ProdutoModel> produtos = new List<ProdutoModel>();
+
+            if (pesquisar == null)
+            {
+                produtos = await _produtoInterface.ListarProdutos();
+            }
+            else
+            {
+                produtos = await _produtoInterface.BuscarProdutoPorFiltro(pesquisar);
+            }
+            return View(produtos);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
     }
 }

@@ -1,0 +1,73 @@
+﻿@using LojaVirtual.Models
+
+@model List<ProdutoModel>
+
+
+@if (TempData["MenssagemSucesso"] != null)
+{
+    <div class="alert alert-success text-dark" role="alert">
+        @TempData["MenssagemSucesso"]
+    </div>
+}
+
+@if (TempData["MenssagemErro"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["MenssagemErro"]
+    </div>
+}
+
+<div class="container mt-5">
+    
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Lista de Produtos</h2>
+        <a class="btn btn-outline-success" asp-action="CadastrarProduto" asp-controller="Produto"><i class="bi bi-plus-circle"></i> Cadastra Novo Produto</a>
+    </div>
+
+    <table class="table table-hover table-bordered" id="registros">
+        <thead class="table-info">
+            <tr>
+                <th class="no-sort"></th>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Categoria</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+                <th class="no-sort"></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var produto in Model)
+                {
+                    <tr>
+                        @if (produto.Foto != null)
+                        {
+                            <td><img src="~/img/@produto.Foto" width="50px" height="50px" style="object-fit:contain" /></td>
+                        } else
+                        {
+                            <td></td>
+                        }
+                        <td>@produto.Nome</td>
+                        <td>@produto.Marca</td>
+                        <td>@produto.Modelo</td>
+                        <td>@produto.Categoria.Nome</td>
+                        <td>@produto.QuantidadeEmEstoque</td>
+                        <td>R$ @produto.Valor.ToString("F2")</td>
+                        <td>
+                            <a asp-action="EditarProduto" asp-controller="Produto" asp-route-id="@produto.Id" class="btn btn-outline-info"><i class="bi bi-pencil mx-1"></i>Editar</a>
+                            <a asp-action="ExcluirProduto" asp-controller="Produto" asp-route-id="@produto.Id" class="btn btn-outline-danger"><i class="bi bi-x-circle mx-1"></i>Deletar</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+ 

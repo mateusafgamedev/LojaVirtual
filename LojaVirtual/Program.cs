@@ -1,7 +1,21 @@
+using LojaVirtual.Data;
+using LojaVirtual.Repository;
+using LojaVirtual.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDockerConnection"))
+);
+
+builder.Services.AddScoped<IProdutoInterface, ProdutoService>();
+builder.Services.AddScoped<ICategoriaInterface, CategoriaService>();
+builder.Services.AddScoped<IEstoqueInterface, EstoqueService>();
 
 var app = builder.Build();
 

@@ -1,0 +1,25 @@
+services:
+
+  LojaVirtualContainer:
+
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    container_name: LojaVirtualContainer
+
+    environment:
+
+      ACCEPT_EULA: "Y"
+
+      SA_PASSWORD: "Str0ng@Sql2026!"
+
+    ports:
+
+      - "1433:1433"
+
+    volumes:
+
+      - LojaVirtualContainer_data:/var/opt/mssql
+
+volumes:
+
+  LojaVirtualContainer_data:
