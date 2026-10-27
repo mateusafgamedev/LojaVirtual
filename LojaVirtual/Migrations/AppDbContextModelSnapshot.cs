@@ -56,6 +56,52 @@ namespace LojaVirtual.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LojaVirtual.Models.EnderecoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
+
+                    b.ToTable("Enderecos");
+                });
+
             modelBuilder.Entity("LojaVirtual.Models.ProdutoModel", b =>
                 {
                     b.Property<int>("Id")
@@ -117,6 +163,55 @@ namespace LojaVirtual.Migrations
                     b.ToTable("ProdutosBaixados");
                 });
 
+            modelBuilder.Entity("LojaVirtual.Models.UsuarioModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cargo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("SenhaHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("SenhaSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("LojaVirtual.Models.EnderecoModel", b =>
+                {
+                    b.HasOne("LojaVirtual.Models.UsuarioModel", "Usuario")
+                        .WithOne("Endereco")
+                        .HasForeignKey("LojaVirtual.Models.EnderecoModel", "UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("LojaVirtual.Models.ProdutoModel", b =>
                 {
                     b.HasOne("LojaVirtual.Models.CategoriaModel", "Categoria")
@@ -137,6 +232,12 @@ namespace LojaVirtual.Migrations
                         .IsRequired();
 
                     b.Navigation("Produto");
+                });
+
+            modelBuilder.Entity("LojaVirtual.Models.UsuarioModel", b =>
+                {
+                    b.Navigation("Endereco")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
