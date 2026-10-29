@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DTO\UsuarioDto\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

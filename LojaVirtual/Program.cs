@@ -16,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IProdutoInterface, ProdutoService>();
 builder.Services.AddScoped<ICategoriaInterface, CategoriaService>();
 builder.Services.AddScoped<IEstoqueInterface, EstoqueService>();
+builder.Services.AddScoped<IUsuarioInterface, UsuarioService>();
 
 var app = builder.Build();
 

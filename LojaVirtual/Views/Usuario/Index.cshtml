@@ -1,0 +1,39 @@
+﻿@using LojaVirtual.Models
+@model List<UsuarioModel>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Usuários Cadastrados</h2>
+        <a class="btn btn-outline-success" asp-action="CadastrarUsuario" asp-controller="Usuario"><i class="bi bi-plus-circle"></i> Cadastra Novo Usuário</a>
+    </div>
+    <table class="table table-hover table-bordered" id="registros">
+        <thead class="table-info">
+            <tr>
+                <th>Nível de Acesso</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Estado</th>
+                <th>Data de Cadastro</th>
+                <th class="no-sort"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var usuario in Model)
+                {
+                    <td>@usuario.Cargo</td>
+                    <td>@usuario.Nome</td>
+                    <td>@usuario.Email</td>
+                    <td>@usuario.Endereco.Estado</td>
+                    <td>@usuario.DataCadastro.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="EditarUsuario" asp-controller="Usuario" asp-route-id="@usuario.Id" class="btn btn-outline-info"><i class="bi bi-pencil mx-1"></i>Editar</a>
+                    </td>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
