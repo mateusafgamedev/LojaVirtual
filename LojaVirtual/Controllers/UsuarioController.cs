@@ -11,10 +11,16 @@ namespace LojaVirtual.Controllers
         {
             _usuarioInterface = usuarioInterface;
         }
+
         public async Task<IActionResult> Index()
         {
             var usuarios = await _usuarioInterface.ListarUsuarios();
             return View(usuarios);
+        }
+
+        public IActionResult CadastrarUsuario()
+        {
+            return View();
         }
     }
 }
