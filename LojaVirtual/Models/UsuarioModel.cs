@@ -12,8 +12,8 @@ namespace LojaVirtual.Models
         public byte[] SenhaHash { get; set; }
         public byte[] SenhaSalt { get; set; }
         public CargoEnum Cargo { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public DateTime DataAlteracao { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public DateTime DataAlteracao { get; set; } = DateTime.Now;
 
         [ValidateNever]
         public EnderecoModel Endereco { get; set; }

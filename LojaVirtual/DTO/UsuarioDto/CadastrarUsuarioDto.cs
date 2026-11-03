@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LojaVirtual.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace LojaVirtual.DTO.UsuarioDto
 {
@@ -11,7 +12,7 @@ namespace LojaVirtual.DTO.UsuarioDto
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo Nível de Acesso é obrigatório.")]
-        public string Cargo { get; set; }
+        public CargoEnum Cargo { get; set; }
 
         [Required(ErrorMessage = "O campo Logradouro é obrigatório.")]
         public string Logradouro { get; set; }

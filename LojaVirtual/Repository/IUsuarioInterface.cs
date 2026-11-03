@@ -1,4 +1,5 @@
-﻿using LojaVirtual.Models;
+﻿using LojaVirtual.DTO.UsuarioDto;
+using LojaVirtual.Models;
 
 namespace LojaVirtual.Repository
 {
@@ -7,6 +8,8 @@ namespace LojaVirtual.Repository
         
         Task<UsuarioModel> BuscarUsuarioPorId(int id);
         Task<List<UsuarioModel>> ListarUsuarios();
+        Task<bool> VerificarUsuarioExistente(CadastrarUsuarioDto usuarioDto);
+        Task<CadastrarUsuarioDto> CadastrarUsuario(CadastrarUsuarioDto usuarioDto);
 
 
     }

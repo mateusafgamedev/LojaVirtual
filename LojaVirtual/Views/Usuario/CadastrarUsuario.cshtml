@@ -1,9 +1,23 @@
 ﻿@using LojaVirtual.DTO.UsuarioDto
 @model CadastrarUsuarioDto
 
+@if (TempData["MenssagemSucesso"] != null)
+{
+    <div class="alert alert-success text-dark" role="alert">
+        @TempData["MenssagemSucesso"]
+    </div>
+}
+
+@if (TempData["MenssagemErro"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["MenssagemErro"]
+    </div>
+}
+
 <div class="container mt-5">
     <h2>Cadastrar Usuário</h2>
-    <form>
+    <form asp-action="CadastrarUsuario" asp-controller="Usuario" method="post">
         <div class="mb-1">
             <label class="form-label">Nome Completo:</label>
             <input type="text" class="form-control shadow-none" asp-for="Nome"/>
@@ -17,7 +31,7 @@
         <div class="mb-1">
             <label class="form-label">Nível de Acesso:</label>
             <select class="form-select shadow-none" asp-for="Cargo">
-                <option>Selecione o nível de acesso</option>
+                <option value="">Selecione o nível de acesso</option>
                 <option value="Administrador">Administrador</option>
                 <option value="Cliente">Cliente</option>
             </select>
