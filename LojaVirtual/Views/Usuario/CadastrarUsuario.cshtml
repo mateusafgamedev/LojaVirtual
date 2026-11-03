@@ -25,13 +25,18 @@
 
         <div class="row g-2">
             <div class="col-12 col-md-6">
+                <label class="form-label">CEP:</label>
+                <input type="text" class="form-control shadow-none" id="input-cep" asp-for="CEP" />
+            </div>
+
+            <div class="col-12 col-md-6">
                 <label class="form-label">Logradouro:</label>
                 <input type="text" class="form-control shadow-none" id="input-logradouro" asp-for="Logradouro"/>
             </div>
 
             <div class="col-12 col-md-6">
                 <label class="form-label">Número:</label>
-                <input type="text" class="form-control shadow-none" id="input-numero" asp-for="Numero"/>
+                <input type="text" class="form-control shadow-none" asp-for="Numero"/>
             </div>
 
             <div class="col-12 col-md-6">
@@ -39,24 +44,19 @@
                 <input type="text" class="form-control shadow-none" id="input-bairro" asp-for="Bairro"/>
             </div>
 
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4">
                 <label class="form-label">Complemento:</label>
                 <input type="text" class="form-control shadow-none" id="input-complemento" asp-for="Complemento"/>
             </div>
 
-            <div class="col-12 col-md-4">
-                <label class="form-label">CEP:</label>
-                <input type="text" class="form-control shadow-none" id="input-cep" asp-for="CEP"/>
+              <div class="col-12 col-md-4">
+                <label class="form-label">Cidade:</label>
+                <input type="text" class="form-control shadow-none" id="input-cidade" asp-for="Cidade"/>
             </div>
 
             <div class="col-12 col-md-4">
                 <label class="form-label">Estado:</label>
                 <input type="text" class="form-control shadow-none" id="input-estado" asp-for="Estado"/>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <label class="form-label">Cidade:</label>
-                <input type="text" class="form-control shadow-none" id="input-cidade" asp-for="Cidade"/>
             </div>
         </div>
 
@@ -78,3 +78,31 @@
 
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script>
+    
+    var inputLogradouro = document.querySelector("#input-logradouro");
+    var inputBairro = document.querySelector("#input-bairro");  
+    var inputCidade = document.querySelector("#input-cidade");
+    var inputEstado = document.querySelector("#input-estado");
+    var inputComplemento = document.querySelector("#input-complemento");
+    
+    $('#input-cep').focusout(async function(e) {
+        var target = e.target;
+        var value = target.value;
+
+        var url = `https://viacep.com.br/ws/${value}/json/`
+
+        var response = await fetch(url);
+        var dados = await response.json();
+
+        inputLogradouro.value = dados.logradouro;
+        inputBairro.value = dados.bairro;
+        inputCidade.value = dados.localidade;
+        inputEstado.value = dados.uf;
+        inputComplemento.value = dados.complemento;
+    })
+    
+</script>
