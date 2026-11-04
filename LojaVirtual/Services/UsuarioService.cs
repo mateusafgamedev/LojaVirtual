@@ -1,4 +1,5 @@
-﻿using LojaVirtual.Data;
+﻿using AutoMapper;
+using LojaVirtual.Data;
 using LojaVirtual.DTO.UsuarioDto;
 using LojaVirtual.Models;
 using LojaVirtual.Repository;
@@ -10,11 +11,42 @@ namespace LojaVirtual.Services
     {
         private readonly AppDbContext _context;
         private readonly IAutenticacaoInterface _autenticacaoService;
+        private readonly IMapper _mapper;
 
-        public UsuarioService(AppDbContext context, IAutenticacaoInterface autenticacaoService)
+        public UsuarioService(AppDbContext context, IAutenticacaoInterface autenticacaoService, IMapper mapper)
         {
             _context = context;
             _autenticacaoService = autenticacaoService;
+            _mapper = mapper;
+        }
+
+        public async Task<UsuarioModel> AtualizarUsuario(EditarUsuarioDto atualizarUsuarioDto)
+        {
+            try
+            {
+                var usuarioExistente = await _context.Usuarios.Include(e => e.Endereco).FirstOrDefaultAsync(u => u.Id == atualizarUsuarioDto.Id);
+
+                if (usuarioExistente == null)
+                {
+                    throw new Exception("Usuário não encontrado.");
+                }
+
+                usuarioExistente.Nome = atualizarUsuarioDto.Nome;
+                usuarioExistente.Email = atualizarUsuarioDto.Email;
+                usuarioExistente.Cargo = atualizarUsuarioDto.Cargo;
+                usuarioExistente.DataAlteracao = DateTime.Now;
+                usuarioExistente.Endereco = _mapper.Map<EnderecoModel>(atualizarUsuarioDto.Endereco);
+
+                _context.Usuarios.Update(usuarioExistente);
+                await _context.SaveChangesAsync();
+
+                return usuarioExistente;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<UsuarioModel> BuscarUsuarioPorId(int id)

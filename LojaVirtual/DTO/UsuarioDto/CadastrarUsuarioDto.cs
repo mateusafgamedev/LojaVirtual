@@ -11,7 +11,7 @@ namespace LojaVirtual.DTO.UsuarioDto
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "O campo Nível de Acesso é obrigatório.")]
+        [Required(ErrorMessage = "Selecione um Nível de Acesso.")]
         public CargoEnum Cargo { get; set; }
 
         [Required(ErrorMessage = "O campo Logradouro é obrigatório.")]

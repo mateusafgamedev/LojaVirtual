@@ -10,6 +10,7 @@ namespace LojaVirtual.Repository
         Task<List<UsuarioModel>> ListarUsuarios();
         Task<bool> VerificarUsuarioExistente(CadastrarUsuarioDto usuarioDto);
         Task<CadastrarUsuarioDto> CadastrarUsuario(CadastrarUsuarioDto usuarioDto);
+        Task<UsuarioModel> AtualizarUsuario(EditarUsuarioDto usuarioDto);
 
 
     }

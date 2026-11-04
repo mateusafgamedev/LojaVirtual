@@ -19,6 +19,8 @@ builder.Services.AddScoped<IEstoqueInterface, EstoqueService>();
 builder.Services.AddScoped<IUsuarioInterface, UsuarioService>();
 builder.Services.AddScoped<IAutenticacaoInterface, AutenticacaoService>();
 
+builder.Services.AddAutoMapper(_ => { }, typeof(Program));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
