@@ -1,4 +1,5 @@
-﻿using LojaVirtual.DTO.UsuarioDto;
+﻿using LojaVirtual.DTO.LoginDto;
+using LojaVirtual.DTO.UsuarioDto;
 using LojaVirtual.Models;
 
 namespace LojaVirtual.Repository
@@ -11,6 +12,7 @@ namespace LojaVirtual.Repository
         Task<bool> VerificarUsuarioExistente(CadastrarUsuarioDto usuarioDto);
         Task<CadastrarUsuarioDto> CadastrarUsuario(CadastrarUsuarioDto usuarioDto);
         Task<UsuarioModel> AtualizarUsuario(EditarUsuarioDto usuarioDto);
+        Task<UsuarioModel> Login(LoginUsuarioDto loginDto);
 
 
     }

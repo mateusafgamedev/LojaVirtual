@@ -1,5 +1,6 @@
 ﻿using LojaVirtual.Enum;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.Text.Json.Serialization;
 
 namespace LojaVirtual.Models
 {

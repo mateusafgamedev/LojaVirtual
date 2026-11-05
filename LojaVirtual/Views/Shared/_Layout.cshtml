@@ -40,17 +40,17 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-           @if (TempData["MenssagemSucesso"] != null)
+           @if (TempData["MensagemSucesso"] != null)
            {
                <div class="alert alert-success text-dark" role="alert">
-                   @TempData["MenssagemSucesso"]
+                   @TempData["MensagemSucesso"]
                </div>
            }
 
-           @if (TempData["MenssagemErro"] != null)
+           @if (TempData["MensagemErro"] != null)
            {
                <div class="alert alert-danger text-dark" role="alert">
-                   @TempData["MenssagemErro"]
+                   @TempData["MensagemErro"]
                </div>
            }
             @RenderBody()

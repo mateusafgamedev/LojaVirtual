@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LojaVirtual.Data;
+using LojaVirtual.DTO.LoginDto;
 using LojaVirtual.DTO.UsuarioDto;
 using LojaVirtual.Models;
 using LojaVirtual.Repository;
@@ -10,14 +11,16 @@ namespace LojaVirtual.Services
     public class UsuarioService : IUsuarioInterface
     {
         private readonly AppDbContext _context;
-        private readonly IAutenticacaoInterface _autenticacaoService;
+        private readonly IAutenticacaoInterface _autenticacaoInterface;
         private readonly IMapper _mapper;
+        private readonly ISessaoInterface _sessaoInterface;
 
-        public UsuarioService(AppDbContext context, IAutenticacaoInterface autenticacaoService, IMapper mapper)
+        public UsuarioService(AppDbContext context, IAutenticacaoInterface autenticacaoInterface, IMapper mapper, ISessaoInterface sessaoInterface)
         {
             _context = context;
-            _autenticacaoService = autenticacaoService;
+            _autenticacaoInterface = autenticacaoInterface;
             _mapper = mapper;
+            _sessaoInterface = sessaoInterface;
         }
 
         public async Task<UsuarioModel> AtualizarUsuario(EditarUsuarioDto atualizarUsuarioDto)
@@ -74,7 +77,7 @@ namespace LojaVirtual.Services
         {
             try
             {
-                _autenticacaoService.CriarSenhaHash(usuarioDto.Senha, out byte[] senhaHash, out byte[] senhaSalt);
+                _autenticacaoInterface.CriarSenhaHash(usuarioDto.Senha, out byte[] senhaHash, out byte[] senhaSalt);
 
                 var usuario = new UsuarioModel
                 {
@@ -116,6 +119,32 @@ namespace LojaVirtual.Services
             try
             {
                 return await _context.Usuarios.Include(e => e.Endereco).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<UsuarioModel> Login(LoginUsuarioDto loginDto)
+        {
+            try
+            {
+                var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+
+                if (usuario == null)
+                {
+                    return null;
+                }
+
+                if (!_autenticacaoInterface.VerificarSenha(loginDto.Senha, usuario.SenhaHash, usuario.SenhaSalt))
+                {
+                    return null;
+                }
+
+                _sessaoInterface.CriarSessao(usuario);
+
+                return usuario; 
             }
             catch (Exception ex)
             {

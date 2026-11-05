@@ -35,17 +35,17 @@ namespace LojaVirtual.Controllers
             {
                 if (await _usuarioInterface.VerificarUsuarioExistente(usuarioDto))
                 {
-                    TempData["MenssagemErro"] = "O usuário já está cadastrado.";
+                    TempData["MensagemErro"] = "O usuário já está cadastrado.";
                     return View(usuarioDto);
                 }
                 var usuarioCadastrado = await _usuarioInterface.CadastrarUsuario(usuarioDto);
-                TempData["MenssagemSucesso"] = "Usuário cadastrado com sucesso.";
+                TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso.";
                 return RedirectToAction("Index");
 
             }
             else
             {
-                TempData["MenssagemErro"] = "Ocorreu um erro ao cadastrar o usuário. Verifique os campos e tente novamente.";
+                TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar o usuário. Verifique os campos e tente novamente.";
                 return View(usuarioDto);
             }
         }
@@ -72,12 +72,12 @@ namespace LojaVirtual.Controllers
             if (ModelState.IsValid)
             {
                 var usuario = await _usuarioInterface.AtualizarUsuario(usuarioDto);
-                TempData["MenssagemSucesso"] = "Usuário atualizado com sucesso.";
+                TempData["MensagemSucesso"] = "Usuário atualizado com sucesso.";
                 return RedirectToAction("Index");
             }
             else
             {
-                TempData["MenssagemErro"] = "Ocorreu um erro ao atualizar o usuário. Verifique os campos e tente novamente.";
+                TempData["MensagemErro"] = "Ocorreu um erro ao atualizar o usuário. Verifique os campos e tente novamente.";
                 return View(usuarioDto);
             }
         }

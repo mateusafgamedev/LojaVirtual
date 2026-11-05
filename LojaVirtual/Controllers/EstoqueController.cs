@@ -61,7 +61,7 @@ namespace LojaVirtual.Controllers
         public async Task<IActionResult> BaixarEstoque(int id)
         {
             await _estoqueInterface.CriarRegistro(id);
-            TempData["MenssagemSucesso"] = "Compra realizada com sucesso!";
+            TempData["MensagemSucesso"] = "Compra realizada com sucesso!";
             return RedirectToAction("Index", "Home");
         }
     }
