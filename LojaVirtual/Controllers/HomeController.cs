@@ -1,4 +1,5 @@
 
+using LojaVirtual.Filtros;
 using LojaVirtual.Models;
 using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 
 namespace LojaVirtual.Controllers
 {
+    [UsuarioLogado]
     public class HomeController : Controller
     {
 

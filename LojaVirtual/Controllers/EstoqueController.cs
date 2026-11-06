@@ -1,10 +1,13 @@
 ﻿using ClosedXML.Excel;
+using LojaVirtual.Filtros;
 using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace LojaVirtual.Controllers
 {
+    [UsuarioLogado]
+    [UsuarioLogadoAdmin]
     public class EstoqueController : Controller
     {
         private readonly IEstoqueInterface _estoqueInterface;

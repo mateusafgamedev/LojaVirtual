@@ -1,0 +1,27 @@
+﻿@using LojaVirtual.Models
+@using LojaVirtual.Enum
+@model UsuarioModel 
+
+
+<ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+
+    @if (Model.Cargo == CargoEnum.Administrador)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-area="" asp-controller="Usuario" asp-action="Index">Usuarios</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-area="" asp-controller="Estoque" asp-action="Index">Registro de Vendas</a>
+        </li>
+    }
+
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
+    </li>
+</ul>

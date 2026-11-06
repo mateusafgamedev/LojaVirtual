@@ -1,9 +1,11 @@
 ﻿using LojaVirtual.DTO.ProdutoDto;
+using LojaVirtual.Filtros;
 using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaVirtual.Controllers
 {
+    [UsuarioLogado]
     public class ProdutoController : Controller
     {
         private readonly IProdutoInterface _produtoInterface;
@@ -15,12 +17,14 @@ namespace LojaVirtual.Controllers
             _categoriaInterface = categoriaInterface;
         }
 
+        [UsuarioLogadoAdmin]
         public async Task<IActionResult> Index()
         {
             var produtos = await _produtoInterface.ListarProdutos();
             return View(produtos);
         }
 
+        [UsuarioLogadoAdmin]
         public async Task<IActionResult> CadastrarProduto() 
         {
             ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
@@ -28,6 +32,7 @@ namespace LojaVirtual.Controllers
             return View(); 
         }
 
+        [UsuarioLogadoAdmin]
         [HttpPost]
         public async Task<IActionResult> CadastrarProduto(CriarProdutoDto produtoDto, IFormFile foto)
         {
@@ -45,6 +50,7 @@ namespace LojaVirtual.Controllers
             }
         }
 
+        [UsuarioLogadoAdmin]
         public async Task<IActionResult> EditarProduto(int id)
         {
             ViewBag.Categorias = await _categoriaInterface.BuscarCategoriasParaProdutos();
@@ -64,6 +70,7 @@ namespace LojaVirtual.Controllers
             return View(editarProdutoDto);
         }
 
+        [UsuarioLogadoAdmin]
         [HttpPost]
         public async Task<IActionResult> EditarProduto(int id, EditarProdutoDto produtoDto, IFormFile? foto)
         {
@@ -82,6 +89,7 @@ namespace LojaVirtual.Controllers
            
         }
 
+        [UsuarioLogadoAdmin]
         public async Task<IActionResult> ExcluirProduto(int id)
         {
             await _produtoInterface.ExcluirProduto(id);

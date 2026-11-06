@@ -8,15 +8,22 @@ namespace LojaVirtual.Controllers
     {
 
         private readonly IUsuarioInterface _usuarioInterface;
+        private readonly ISessaoInterface _sessaoInterface;
 
-        public LoginController(IUsuarioInterface usuarioInterface)
+        public LoginController(IUsuarioInterface usuarioInterface, ISessaoInterface sessaoInterface)
         {
             _usuarioInterface = usuarioInterface;
+            _sessaoInterface = sessaoInterface;
         }
 
         public IActionResult Login()
         {
             return View();
+        }
+        public IActionResult Sair()
+        {
+            _sessaoInterface.RemoverSessao();
+            return RedirectToAction("Login","Login");
         }
 
         [HttpPost]

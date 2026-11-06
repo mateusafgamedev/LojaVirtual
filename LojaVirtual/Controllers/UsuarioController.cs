@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using LojaVirtual.DTO.EnderecoDto;
 using LojaVirtual.DTO.UsuarioDto;
+using LojaVirtual.Filtros;
 using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaVirtual.Controllers
 {
+    [UsuarioLogado]
+    [UsuarioLogadoAdmin]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioInterface _usuarioInterface;

@@ -23,7 +23,7 @@ namespace LojaVirtual.DTO.UsuarioDto
         [Required(ErrorMessage = "O campo Bairro é obrigatório.")]
         public string Bairro { get; set; }
 
-        public string Complemento { get; set; }
+        public string? Complemento { get; set; }
 
         [Required(ErrorMessage = "O campo CEP é obrigatório.")]
         public string CEP { get; set; }
