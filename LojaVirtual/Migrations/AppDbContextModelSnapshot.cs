@@ -153,8 +153,19 @@ namespace LojaVirtual.Migrations
                     b.Property<DateTime>("DataDaBaixa")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProdutoModelId")
+                    b.Property<string>("NomeCategoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeProduto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProdutoModelId")
                         .HasColumnType("int");
+
+                    b.Property<double>("ValorProduto")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -228,8 +239,7 @@ namespace LojaVirtual.Migrations
                     b.HasOne("LojaVirtual.Models.ProdutoModel", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Produto");
                 });

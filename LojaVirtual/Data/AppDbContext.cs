@@ -19,6 +19,10 @@ namespace LojaVirtual.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ProdutosBaixadosModel>()
+                .HasOne(pb => pb.Produto)
+                .WithMany().HasForeignKey(pb => pb.ProdutoModelId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<CategoriaModel>().HasData(
                 new CategoriaModel { Id = 1, Nome = "Eletrônicos" },

@@ -21,38 +21,51 @@ namespace LojaVirtual.Services
         {
             try
             {
-                var result = from pb in _context.ProdutosBaixados.Include(x => x.Produto)
-                                                                        .Include(y => y.Produto.Categoria)
-                                                                        .ToList()
-                             group pb by new { pb.Produto.CategoriaId, pb.DataDaBaixa } into total
-                             select new
-                             {
-                                 ProdutoId = total.First().Produto.Categoria.Id,
-                                 CategoriaNome = total.First().Produto.Categoria.Nome,
-                                 DataDaCompra = total.First().DataDaBaixa,
-                                 Total = total.Sum(x => x.Produto.Valor)
-                             };
+                var totalGeral = _context.ProdutosBaixados.Sum(p => p.ValorProduto);
 
-                var totalGeral = _context.ProdutosBaixados.Include(x => x.Produto)
-                                                            .Include(y => y.Produto.Categoria)
-                                                            .Sum(x => x.Produto.Valor);
-
-                List<RegistroProdutosModel> ListaRegistro = new List<RegistroProdutosModel>();
-
-                foreach (var resulList in result)
-                {
-                    var registro = new RegistroProdutosModel
+                return _context.ProdutosBaixados
+                    .GroupBy(p => new { p.NomeCategoria, p.DataDaBaixa })
+                    .Select(g => new RegistroProdutosModel
                     {
-                        ProdutoId = resulList.ProdutoId,
-                        NomeCategoria = resulList.CategoriaNome,
-                        ValorTotal = resulList.Total,
-                        DataCompra = resulList.DataDaCompra,
+                        NomeCategoria = g.Key.NomeCategoria,
+                        DataCompra = g.Key.DataDaBaixa,
+                        ValorTotal = g.Sum(p => p.ValorProduto),
                         ValorTotalGeral = totalGeral
-                    };
-                    ListaRegistro.Add(registro);
-                }
+                    })
+                    .ToList();
 
-                return ListaRegistro;
+                //var result = from pb in _context.ProdutosBaixados.Include(x => x.Produto)
+                //                                                        .Include(y => y.Produto.Categoria)
+                //                                                        .ToList()
+                //             group pb by new { pb.Produto.CategoriaId, pb.DataDaBaixa } into total
+                //             select new
+                //             {
+                //                 ProdutoId = total.First().Produto.Categoria.Id,
+                //                 CategoriaNome = total.First().Produto.Categoria.Nome,
+                //                 DataDaCompra = total.First().DataDaBaixa,
+                //                 Total = total.Sum(x => x.Produto.Valor)
+                //             };
+
+                //var totalGeral = _context.ProdutosBaixados.Include(x => x.Produto)
+                //                                            .Include(y => y.Produto.Categoria)
+                //                                            .Sum(x => x.Produto.Valor);
+
+                //List<RegistroProdutosModel> ListaRegistro = new List<RegistroProdutosModel>();
+
+                //foreach (var resulList in result)
+                //{
+                //    var registro = new RegistroProdutosModel
+                //    {
+                //        ProdutoId = resulList.ProdutoId,
+                //        NomeCategoria = resulList.CategoriaNome,
+                //        ValorTotal = resulList.Total,
+                //        DataCompra = resulList.DataDaCompra,
+                //        ValorTotalGeral = totalGeral
+                //    };
+                //    ListaRegistro.Add(registro);
+                //}
+
+                //return ListaRegistro;
             }
             catch (Exception ex)
             {
@@ -69,15 +82,18 @@ namespace LojaVirtual.Services
                 var produtoBaixado = new ProdutosBaixadosModel
                 {
                     Produto = produto,
-                    ProdutoModelId = idProduto
+                    ProdutoModelId = idProduto,
+                    NomeProduto = produto.Nome,
+                    NomeCategoria = produto.Categoria.Nome,
+                    ValorProduto = produto.Valor,
                 };
+
                 _context.ProdutosBaixados.Add(produtoBaixado);
-                await _context.SaveChangesAsync();
-
                 BaixarEstoque(produto);
-
-                _context.Update(produto);
                 await _context.SaveChangesAsync();
+
+                //_context.Update(produto);
+                //await _context.SaveChangesAsync();
 
                 return produtoBaixado;
 
