@@ -7,7 +7,6 @@ using System.Data;
 namespace LojaVirtual.Controllers
 {
     [UsuarioLogado]
-    [UsuarioLogadoAdmin]
     public class EstoqueController : Controller
     {
         private readonly IEstoqueInterface _estoqueInterface;
@@ -16,6 +15,8 @@ namespace LojaVirtual.Controllers
         {
             _estoqueInterface = estoqueInterface;
         }
+
+        [UsuarioLogadoAdmin]
         public IActionResult Index()
         {
             var registros = _estoqueInterface.ListarRegistrosDeVendas();

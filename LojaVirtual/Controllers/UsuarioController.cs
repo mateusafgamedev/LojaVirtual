@@ -38,7 +38,7 @@ namespace LojaVirtual.Controllers
             {
                 if (await _usuarioInterface.VerificarUsuarioExistente(usuarioDto))
                 {
-                    TempData["MensagemErro"] = "O usuário já está cadastrado.";
+                    TempData["MensagemErro"] = "O Email já está cadastrado.";
                     return View(usuarioDto);
                 }
                 var usuarioCadastrado = await _usuarioInterface.CadastrarUsuario(usuarioDto);
