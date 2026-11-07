@@ -17,7 +17,8 @@ Aplicação web de loja virtual desenvolvida em **C# com ASP.NET Core MVC**, com
 - C# / .NET `[versão, ex.: 8.0]`
 - ASP.NET Core MVC (Razor Views)
 - Entity Framework Core
-- `[Banco de dados, ex.: SQL Server / PostgreSQL / SQLite]`
+- `[Banco de dados, SQL Server]`
+- Docker / Docker Compose (SQL Server em container)
 - Bootstrap
 
 ## 🧱 Arquitetura
