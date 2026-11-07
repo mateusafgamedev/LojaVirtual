@@ -35,13 +35,16 @@
                 }
             }
         </tbody>
-        <tfoot class="table-info">
-            <tr>
-                <th>Total de Vendas</th>
-                <th></th>
-                <th>R$ @Model.First().ValorTotalGeral.ToString("F2")</th>
+
+        @if(Model.Count() > 0){
+            <tfoot class="table-info">
+                <tr>
+                    <th>Total de Vendas</th>
+                    <th></th>
+                    <th>R$ @Model.First().ValorTotalGeral.ToString("F2")</th>
+                </tr>
+            </tfoot>
+        }
                 
-            </tr>
-        </tfoot>
     </table>
 </div>
