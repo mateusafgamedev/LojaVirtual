@@ -56,10 +56,11 @@ git clone https://github.com/mateusafgamedev/LojaVirtual.git
 # 2. Entre na pasta do projeto
 cd LojaVirtual
 
-# 3. Restaure as dependências
-dotnet restore
+# 3. Suba o banco no docker
+docker-compose up -d
 ```
 
+`Caso não use docker realize passo 4 fazendo a configuração de acesso do banco que costuma usar`
 **4. Configure a string de conexão** no arquivo `appsettings.json`:
 
 ```json
@@ -75,10 +76,6 @@ dotnet restore
 ```bash
 # 5. Aplique as migrations para criar o banco
 dotnet ef database update
-
-# 6. Execute a aplicação
-dotnet run
-```
 
 Depois, acesse o endereço exibido no terminal (geralmente `https://localhost:xxxx`).
 
