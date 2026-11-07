@@ -1,21 +1,6 @@
 ﻿    @using LojaVirtual.DTO.ProdutoDto
 @model EditarProdutoDto
 
-
-@if (TempData["MenssagemSucesso"] != null)
-{
-    <div class="alert alert-success text-dark" role="alert">
-        @TempData["MenssagemSucesso"]
-    </div>
-}
-
-@if (TempData["MenssagemErro"] != null)
-{
-    <div class="alert alert-danger text-dark" role="alert">
-        @TempData["MenssagemErro"]
-    </div>
-}
-
 <div class="container mt-5">
     <form asp-action="EditarProduto" asp-controller="Produto" method="post" enctype="multipart/form-data">
         <h2>Editar Dados do Produto</h2>

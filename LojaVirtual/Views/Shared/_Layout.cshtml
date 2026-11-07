@@ -20,23 +20,26 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Estoque" asp-action="Index">Registro de Vendas</a>
-                        </li>
-                    </ul>
+                    @await Component.InvokeAsync("Menu")
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+           @if (TempData["MensagemSucesso"] != null)
+           {
+               <div class="alert alert-success text-dark" role="alert">
+                   @TempData["MensagemSucesso"]
+               </div>
+           }
+
+           @if (TempData["MensagemErro"] != null)
+           {
+               <div class="alert alert-danger text-dark" role="alert">
+                   @TempData["MensagemErro"]
+               </div>
+           }
             @RenderBody()
         </main>
     </div>

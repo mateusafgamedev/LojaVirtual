@@ -1,10 +1,12 @@
 ﻿using ClosedXML.Excel;
+using LojaVirtual.Filtros;
 using LojaVirtual.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace LojaVirtual.Controllers
 {
+    [UsuarioLogado]
     public class EstoqueController : Controller
     {
         private readonly IEstoqueInterface _estoqueInterface;
@@ -13,6 +15,8 @@ namespace LojaVirtual.Controllers
         {
             _estoqueInterface = estoqueInterface;
         }
+
+        [UsuarioLogadoAdmin]
         public IActionResult Index()
         {
             var registros = _estoqueInterface.ListarRegistrosDeVendas();
@@ -61,7 +65,7 @@ namespace LojaVirtual.Controllers
         public async Task<IActionResult> BaixarEstoque(int id)
         {
             await _estoqueInterface.CriarRegistro(id);
-            TempData["MenssagemSucesso"] = "Compra realizada com sucesso!";
+            TempData["MensagemSucesso"] = "Compra realizada com sucesso!";
             return RedirectToAction("Index", "Home");
         }
     }

@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "_LayoutDeslogado";
+}
+
+<div class="container mt-5 text-center">
+    <h2>Criar Conta</h2>
+    <p>Escolha o tipo de conta:</p>
+    <div class="d-flex justify-content-center gap-2">
+        <a asp-controller="Login" asp-action="CriarConta" class="btn btn-outline-primary">Cadastrar Cliente</a>
+        <a asp-controller="Login" asp-action="CriarContaAdmin" class="btn btn-outline-secondary">Cadastrar Administrador</a>
+    </div>
+    <div class="mt-3">
+        <a asp-controller="Login" asp-action="Login">Voltar</a>
+    </div>
+</div>

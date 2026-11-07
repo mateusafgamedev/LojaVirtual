@@ -13,10 +13,16 @@ namespace LojaVirtual.Data
         public DbSet<ProdutoModel> Produtos { get; set; }
         public DbSet<CategoriaModel> Categorias { get; set; }
         public DbSet<ProdutosBaixadosModel> ProdutosBaixados { get; set; }
+        public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<EnderecoModel> Enderecos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ProdutosBaixadosModel>()
+                .HasOne(pb => pb.Produto)
+                .WithMany().HasForeignKey(pb => pb.ProdutoModelId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<CategoriaModel>().HasData(
                 new CategoriaModel { Id = 1, Nome = "Eletrônicos" },
