@@ -8,11 +8,13 @@
         <div class="mb-1">
             <label class="form-label">Nome Completo:</label>
             <input type="text" class="form-control shadow-none" asp-for="Nome"/>
+            <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
 
         <div class="mb-1">
             <label class="form-label">Email:</label>
             <input type="email" class="form-control shadow-none" asp-for="Email"/>
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="mb-1">
@@ -22,17 +24,20 @@
                 <option value="Administrador">Administrador</option>
                 <option value="Cliente">Cliente</option>
             </select>
+            <span asp-validation-for="Cargo" class="text-danger"></span>
         </div>
 
         <div class="row g-2">
             <div class="col-12 col-md-6">
                 <label class="form-label">CEP:</label>
                 <input type="text" class="form-control shadow-none" id="input-cep" asp-for="CEP" autocomplete="off" />
+                <span asp-validation-for="CEP" class="text-danger"></span>
             </div>
 
             <div class="col-12 col-md-6">
                 <label class="form-label">Logradouro:</label>
                 <input type="text" class="form-control shadow-none" id="input-logradouro" asp-for="Logradouro"/>
+                <span asp-validation-for="Logradouro" class="text-danger"></span>
             </div>
 
             <div class="col-12 col-md-6">
@@ -43,6 +48,7 @@
             <div class="col-12 col-md-6">
                 <label class="form-label">Bairro:</label>
                 <input type="text" class="form-control shadow-none" id="input-bairro" asp-for="Bairro"/>
+                <span asp-validation-for="Bairro" class="text-danger"></span>
             </div>
 
             <div class="col-12 col-md-4">
@@ -53,22 +59,26 @@
               <div class="col-12 col-md-4">
                 <label class="form-label">Cidade:</label>
                 <input type="text" class="form-control shadow-none" id="input-cidade" asp-for="Cidade"/>
+                <span asp-validation-for="Cidade" class="text-danger"></span>
             </div>
 
             <div class="col-12 col-md-4">
                 <label class="form-label">Estado:</label>
                 <input type="text" class="form-control shadow-none" id="input-estado" asp-for="Estado"/>
+                <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
         </div>
 
         <div class="mb-1">
             <label class="form-label">Senha:</label>
             <input type="password" class="form-control shadow-none" asp-for="Senha"/>
+            <span asp-validation-for="Senha" class="text-danger"></span>
         </div>
 
         <div class="mb-1">
             <label class="form-label">Confirmar Senha:</label>
             <input type="password" class="form-control shadow-none" asp-for="ConfirmarSenha"/>
+            <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
         </div>
         
         <div class="d-flex mt-3">

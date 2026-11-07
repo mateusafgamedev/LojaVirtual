@@ -100,7 +100,7 @@ namespace LojaVirtual.Controllers
 
                 if (usuario == null)
                 {
-                    TempData["MensagemErro"] = "Informe Usuário e/ou senha.";
+                    TempData["MensagemErro"] = "Usuário ou senha inválidos.";
                     return View(login);
                 }
 
@@ -109,7 +109,7 @@ namespace LojaVirtual.Controllers
 
             } else
             {
-                TempData["MensagemErro"] = "Usuário ou senha inválidos.";
+                TempData["MensagemErro"] = "Informe Usuário e senha.";
                 return View(login);
             }
         }

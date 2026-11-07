@@ -12,13 +12,12 @@ namespace LojaVirtual.DTO.UsuarioDto
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Selecione um Nível de Acesso.")]
-        public CargoEnum Cargo { get; set; }
+        public CargoEnum? Cargo { get; set; }
 
         [Required(ErrorMessage = "O campo Logradouro é obrigatório.")]
         public string Logradouro { get; set; }
 
-        [Required(ErrorMessage = "O campo Número é obrigatório.")]
-        public string Numero { get; set; }
+        public string? Numero { get; set; }
 
         [Required(ErrorMessage = "O campo Bairro é obrigatório.")]
         public string Bairro { get; set; }

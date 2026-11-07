@@ -83,7 +83,7 @@ namespace LojaVirtual.Services
                 {
                     Nome = usuarioDto.Nome,
                     Email = usuarioDto.Email,
-                    Cargo = usuarioDto.Cargo,
+                    Cargo = usuarioDto.Cargo!.Value,
                     SenhaHash = senhaHash,
                     SenhaSalt = senhaSalt
                     
