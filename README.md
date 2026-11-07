@@ -1,51 +1,66 @@
 # 🛒 LojaVirtual
 
-Aplicação web de loja virtual desenvolvida em **C# com ASP.NET Core MVC**, com autenticação de usuários, cadastro com endereço e controle de acesso por cargo.
+Aplicação web de loja virtual desenvolvida com **C# e ASP.NET Core MVC (.NET 8)**. Clientes navegam pela vitrine, pesquisam e compram produtos; administradores gerenciam produtos, usuários e acompanham o registro de vendas, com exportação para Excel.
 
 ## ✨ Funcionalidades
 
-- Cadastro de usuário com dados pessoais e endereço
-- Login com senha protegida por **hash + salt**
-- Controle de sessão do usuário logado
-- Níveis de acesso por cargo (`CargoEnum`)
-- Validação de formulários com Data Annotations (`[Required]`, etc.)
-- Mensagens de erro e sucesso na interface
-- Layouts separados para usuário logado e deslogado
+**Para todos os usuários**
+- Cadastro de conta (cliente ou administrador), login e logout
+- Senhas protegidas com **hash + salt** (nunca em texto puro)
+- Sessão de usuário e filtros de acesso por cargo (`Cliente` e `Administrador`)
+
+**Cliente**
+- Vitrine de produtos com foto, categoria e preço (só aparecem produtos com estoque)
+- Pesquisa por nome ou marca
+- Página de detalhes do produto
+- Compra de produto, com baixa automática no estoque
+
+**Administrador**
+- CRUD de produtos, com upload de foto
+- Gerenciamento de usuários (listar, cadastrar e editar)
+- Registro de vendas, agrupado por categoria e data, com total geral
+- Relatório de vendas em **Excel (.xlsx)**
+- O histórico de vendas é preservado mesmo se o produto for excluído
 
 ## 🛠️ Tecnologias
 
-- C# / .NET `[versão, ex.: 8.0]`
+- C# / .NET 8
 - ASP.NET Core MVC (Razor Views)
-- Entity Framework Core
-- SQL Server
-- Docker / Docker Compose (SQL Server em container)
-- Bootstrap
+- Entity Framework Core 8 (Migrations)
+- SQL Server 2022 em contêiner Docker
+- AutoMapper
+- ClosedXML (geração de planilhas)
+- Bootstrap e jQuery Validation
 
-## 🧱 Arquitetura
-
-O projeto segue o padrão MVC, com camadas de serviço e DTOs:
+## 🧱 Estrutura do projeto
 
 ```
-LojaVirtual/
-├── Controllers/   # Recebem as requisições e retornam as Views
-├── Views/         # Telas em Razor (.cshtml)
-├── Models/        # Entidades do banco (UsuarioModel, EnderecoModel...)
-├── DTO/           # Objetos de transferência de dados (LoginUsuarioDto, CadastrarUsuarioDto...)
-├── Enum/          # Enumeradores (CargoEnum)
-├── Services/      # Regras de negócio (UsuarioService, autenticação, sessão)
-├── Data/          # DbContext e configuração do banco
-└── Migrations/    # Migrations do Entity Framework
+LojaVirtual/                 # projeto ASP.NET Core
+    ├── Controllers/             # Login, Home, Produto, Usuario, Estoque
+    ├── Views/                   # Telas Razor (.cshtml) e layouts
+    ├── Models/                  # Entidades do banco
+    ├── DTO/                     # Objetos de transferência (usuário, produto, endereço, login)
+    ├── Repository/              # Interfaces dos serviços
+    ├── Services/                # Regras de negócio
+    ├── Filtros/                 # Filtros de acesso (UsuarioLogado, UsuarioLogadoAdmin)
+    ├── Data/                    # AppDbContext
+    ├── Enums/                   # CargoEnum
+    ├── Profiles/                # Mapeamentos do AutoMapper
+    ├── Migrations/              # Migrations do Entity Framework
+    └── wwwroot/                 # Arquivos estáticos (css, js, imagens)
 ```
-
-<!-- Ajuste os nomes das pastas conforme a estrutura real do repositório -->
 
 ## 🚀 Como executar
 
 ### Pré-requisitos
 
-- [.NET SDK](https://dotnet.microsoft.com/download) `[versão]`
-- `[Banco de dados escolhido]`
+- [.NET SDK 8](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [Docker](https://www.docker.com/products/docker-desktop/) em execução
 - Git
+- Ferramenta do Entity Framework:
+  ```bash
+  dotnet tool install --global dotnet-ef --version 8.*
+  ```
 
 ### Passo a passo
 
@@ -53,36 +68,44 @@ LojaVirtual/
 # 1. Clone o repositório
 git clone https://github.com/mateusafgamedev/LojaVirtual.git
 
-# 2. Entre na pasta do projeto
+# 2. Entre na pasta do repositório
 cd LojaVirtual
 
-# 3. Suba o banco no docker
-docker-compose up -d
-```
+# 3. Suba o banco de dados (SQL Server) no Docker
+docker compose up -d
 
-`Caso não use docker realize passo 4 fazendo a configuração de acesso do banco que costuma usar`
-**4. Configure a string de conexão** no arquivo `appsettings.json`:
+# 4. Entre na pasta do projeto
+cd LojaVirtual
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "sua-string-de-conexao-aqui"
-  }
-}
-```
-
-> O nome da chave (`DefaultConnection`) deve ser o mesmo usado no `Program.cs`.
-
-```bash
-# 5. Aplique as migrations para criar o banco
+# 5. Crie o banco e as tabelas
 dotnet ef database update
 
-Depois, acesse o endereço exibido no terminal (geralmente `https://localhost:xxxx`).
+# 6. Execute a aplicação
+dotnet run --launch-profile https
+```
+
+Acesse **https://localhost:7225** (ou http://localhost:5273). A aplicação abre na tela de login.
+
+> A string de conexão (`DefaultDockerConnection`, em `appsettings.json`) já aponta para o SQL Server do `docker-compose.yml` (`localhost,1433`), então não é preciso configurar nada para rodar localmente.
+
+### Criando o primeiro administrador
+
+O cadastro de administrador exige um token, lido da configuração `AdminToken`. Defina um token com o *user secrets*, a partir da pasta do projeto:
+
+```bash
+dotnet user-secrets set "AdminToken" "escolha-um-token"
+```
+
+Depois, em **Cadastre-se → Cadastrar Administrador**, informe os dados e esse token. Sem o `AdminToken` configurado, o cadastro de administrador é recusado.
+
+As categorias **Eletrônicos**, **Calçados** e **Roupas** já são criadas pelas migrations.
 
 ## 🔐 Segurança
 
-- As senhas **não** são armazenadas em texto puro: cada usuário tem `SenhaHash` e `SenhaSalt`.
-- Os formulários são validados no servidor via `ModelState`.
+- Senhas armazenadas com `SenhaHash` e `SenhaSalt`.
+- Rotas protegidas por filtros de acesso: `UsuarioLogado` (exige login) e `UsuarioLogadoAdmin` (exige cargo de administrador).
+- Cadastro de administrador protegido por token.
+- As credenciais do SQL Server no `docker-compose.yml` e no `appsettings.json` são **apenas para desenvolvimento local**. Não use em produção.
 
 ## 👤 Autor
 
