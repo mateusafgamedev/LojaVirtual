@@ -9,8 +9,8 @@ namespace LojaVirtual.Models
 
         [ValidateNever]
         public ProdutoModel? Produto { get; set; }
-        public string NomeProduto { get; set; }
-        public string NomeCategoria { get; set; }
+        public string NomeProduto { get; set; } = string.Empty;
+        public string NomeCategoria { get; set; } = string.Empty;
         public double ValorProduto { get; set; }
         public DateTime DataDaBaixa { get; set; } = DateTime.Today;
     }
